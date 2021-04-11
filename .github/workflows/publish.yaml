@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: caiych/caiych-caddy:latest:latest
+          tags: caiych/caiych-caddy:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
