@@ -1,3 +1,5 @@
+# NOTE: the version here might not be accurate.
+# It could be modified in github actions by github.com/caiych/sync-caddy-version
 FROM caddy:2.4.0-builder AS builder
 
 RUN xcaddy build \
