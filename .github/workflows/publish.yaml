@@ -25,7 +25,7 @@ jobs:
 
       - 
         name: Sync caddy and builder versions
-        run: sync-caddy-version --input=raw/Dockerfile --output=Dockerfile
+        run: $HOME/go/bin/sync-caddy-version --input=raw/Dockerfile --output=Dockerfile
       
       -
         name: Login to DockerHub
