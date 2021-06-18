@@ -7,6 +7,6 @@ RUN xcaddy build \
 # VERSION is a placeholder and will be replaced during github action execution.
 FROM caddy:VERSION
 
-YO!! BREAK!
+# Essentially empty PR, should pass CI
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
