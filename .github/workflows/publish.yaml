@@ -34,8 +34,11 @@ jobs:
 
       - 
         name: Sync caddy and builder versions
-        run: $HOME/go/bin/sync-caddy-version --input=$(pwd)/raw/Dockerfile --output=$(pwd)/Dockerfile --version_placeholder=VERSION
-      
+        id: sync_versions
+        run: |
+          VERSION=$($HOME/go/bin/sync-caddy-version --input="$(pwd)/raw/Dockerfile" --output="$(pwd)/Dockerfile" --version_placeholder=VERSION --output_used_version_to_stdout) &&
+          echo $VERSION &&
+          echo "::set-output name=version::$VERSION"
       -
         name: Login to DockerHub
         uses: docker/login-action@v1 
@@ -50,7 +53,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name == 'push' }}
-          tags: caiych/caiych-caddy:latest
+          tags: caiych/caiych-caddy:${{ steps.sync_versions.outputs.version }}, caiych/caiych-caddy:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
