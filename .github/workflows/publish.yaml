@@ -37,6 +37,7 @@ jobs:
         id: sync_versions
         run: |
           VERSION=$($HOME/go/bin/sync-caddy-version --input="$(pwd)/raw/Dockerfile" --output="$(pwd)/Dockerfile" --version_placeholder=VERSION --output_used_version_to_stdout) &&
+          echo $VERSION &&
           echo "::set-output name=version::$VERSION"
       -
         name: Login to DockerHub
