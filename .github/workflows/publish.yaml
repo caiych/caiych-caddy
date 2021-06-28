@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - 
-        name: Sync caddy and builder versions
+        name: Set version
         id: set_version
         run: |
           VERSION=$(gawk 'match($0, /.*caiych\/caddy:(.*)/, a) {print a[1];}' Dockerfile) &&
