@@ -22,21 +22,12 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - 
-        name: Set up go
-        uses: actions/setup-go@v1
-        with:
-          go-version: '^1.16'
-
-      - 
-        name: Get sync caddy version
-        run: go get github.com/caiych/sync-caddy-version
 
       - 
         name: Sync caddy and builder versions
-        id: sync_versions
+        id: set_version
         run: |
-          VERSION=$($HOME/go/bin/sync-caddy-version --input="$(pwd)/raw/Dockerfile" --output="$(pwd)/Dockerfile" --version_placeholder=VERSION --output_used_version_to_stdout) &&
+          VERSION=$(gawk 'match($0, /.*caiych\/caddy:(.*)/, a) {print a[1];}' Dockerfile) &&
           echo $VERSION &&
           echo "::set-output name=version::$VERSION"
       -
@@ -54,7 +45,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name == 'push' }}
-          tags: caiych/caiych-caddy:${{ steps.sync_versions.outputs.version }}, caiych/caiych-caddy:latest
+          tags: caiych/caiych-caddy:${{ steps.set_version.outputs.version }}, caiych/caiych-caddy:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
