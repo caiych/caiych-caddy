@@ -4,7 +4,8 @@ RUN xcaddy build \
     --with github.com/greenpau/caddy-auth-portal \
     --with github.com/caddy-dns/cloudflare
 
-# VERSION is a placeholder and will be replaced during github action execution.
-FROM caddy:VERSION
+# caiych/caddy is a copy of official caddy.
+# https://github.com/caiych/caddy
+FROM caiych/caddy:2.4.2
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
