@@ -6,6 +6,6 @@ RUN xcaddy build \
 
 # caiych/caddy is a copy of official caddy.
 # https://github.com/caiych/caddy
-FROM caiych/caddy:2.4.3
+FROM caiych/caddy:2.4.5
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
