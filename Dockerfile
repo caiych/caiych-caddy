@@ -1,4 +1,4 @@
-FROM caddy:2.4.5-builder AS builder
+FROM caddy:2.6.2-builder AS builder
 
 RUN xcaddy build \
     --with github.com/greenpau/caddy-auth-portal \
